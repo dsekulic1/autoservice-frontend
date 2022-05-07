@@ -11,7 +11,7 @@ ReactDOM.render(
     <Router>
       <Header />
       <CssBaseline />
-      <App />
+      <App  />
     </Router>
   </React.StrictMode>,
   rootElement

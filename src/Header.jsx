@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
   const { history } = props
-  const location = useHistory()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -54,6 +53,7 @@ const Header = (props) => {
     if (loggedInUser) {
       var mydata = JSON.parse(loggedInUser)
       setRole(mydata.roles[0])
+      console.log(loggedInUser)
       setLoggedIn(true)
     }
   })
@@ -63,7 +63,7 @@ const Header = (props) => {
     if (log) {
       setLoggedIn(true)
     }
-  }, [location.pathname])
+  }, [role])
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
@@ -107,10 +107,18 @@ const Header = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' style={{ backgroundColor: 'black' }}>
+      <AppBar position='sticky' style={{ backgroundColor: 'black' }}>
         <Toolbar>
           <Typography variant='h6' className={classes.title}>
-            AUTO REPAIR
+            <div>
+              <img
+                src={
+                  'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'
+                }
+                style={{ height: '8%', width: '15%' }}
+                alt='BigCo Inc. logo'
+              />
+            </div>
           </Typography>
           {isMobile ? (
             <>
@@ -181,7 +189,6 @@ const Header = (props) => {
                       PREGLED ZAHTJEVA
                     </Button>
                   )}
-
                   <Button
                     style={{ borderRadius: '0', borderLeft: '1px solid white' }}
                     variant='text'

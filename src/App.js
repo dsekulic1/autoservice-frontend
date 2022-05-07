@@ -28,7 +28,9 @@ export default function App() {
     // <div className={classes.container}>
     <div
       style={{
-        backgroundImage: `url(${'https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX37243398.jpg'})`,
+        backgroundImage: `url(${'https://thumbs.dreamstime.com/b/real-line-fire-flames-reflection-isolated-black-background-mockup-black-wall-fire-real-fire-line-flames-120450057.jpg'})`,
+        width: '100%',
+        height: '90%',
       }}
     >
       <Switch>

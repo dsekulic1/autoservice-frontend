@@ -4,7 +4,6 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
-import { signUp } from 'api/user/auth'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -54,9 +53,18 @@ export default function Register() {
   const onFinish = async (values) => {
     try {
       setLoading(true)
-      const response = await signUp(values)
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      }
+      const response = await fetch(
+        process.env.REACT_APP_HOST_URL + '/api/v1/auth/signup',
+        requestOptions
+      )
+      const data = await response.json()
       setLoading(false)
-      setSession(response)
+      setSession(data)
       history.push('/')
     } catch (error) {
       setLoading(false)

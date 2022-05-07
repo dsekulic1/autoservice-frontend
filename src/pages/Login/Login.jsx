@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { registerUrl, homeUrl } from 'utilities/appUrls'
-import { login } from '../../api/user/auth'
 import {
   getRememberInfo,
   removeRememberInfo,
@@ -39,7 +38,6 @@ function Copyright(props) {
     </Typography>
   )
 }
-
 const theme = createTheme()
 
 const SignIn = () => {
@@ -51,9 +49,18 @@ const SignIn = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true)
-      const response = await login(values)
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      }
+      const response = await fetch(
+        process.env.REACT_APP_HOST_URL + '/api/v1/auth/login',
+        requestOptions
+      )
+      const data = await response.json()
       setLoading(false)
-      setSession(response)
+      setSession(data)
       if (isTrue) {
         setRememberInfo(values.username, values.password)
       } else {
