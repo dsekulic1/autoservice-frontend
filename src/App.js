@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom'
 import Login from './pages/Login/Login'
 import PrivateRoute from 'routing/PrivateRoute'
 import WorkerRoute from 'routing/WorkerRoute'
+import Register from 'pages/Register/Register'
 // const useStyles = makeStyles({});
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
           logedInUser={loggedIn}
         />
         <Route path='/login' render={(props) => <Login />} />
+        <Route path='/register' render={(props) => <Register />} />
       </Switch>
     </div>
   )

@@ -21,7 +21,6 @@ import {
   setRememberInfo,
   setSession,
 } from 'utilities/localStorage'
-import { useUserContext } from '../../AppContext'
 
 function Copyright(props) {
   return (
