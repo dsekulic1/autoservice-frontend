@@ -53,7 +53,6 @@ const Header = (props) => {
     if (loggedInUser) {
       var mydata = JSON.parse(loggedInUser)
       setRole(mydata.roles[0])
-      console.log(loggedInUser)
       setLoggedIn(true)
     }
   })

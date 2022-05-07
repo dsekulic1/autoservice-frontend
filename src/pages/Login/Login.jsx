@@ -51,8 +51,9 @@ const SignIn = () => {
       setLoading(true)
       const requestOptions = {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(values),
       }
       const response = await fetch(
