@@ -12,6 +12,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { withRouter } from 'react-router-dom'
 import { removeSession } from 'utilities/localStorage'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { getUser } from 'utilities/localStorage'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Header = (props) => {
-  const { history } = props
+  const history = useHistory()
+  const user = getUser()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -55,15 +57,13 @@ const Header = (props) => {
       setRole(mydata.roles[0])
       setLoggedIn(true)
     }
-  })
-
+  }, [user])
   useEffect(() => {
     const log = localStorage.getItem('autoservice-session')
     if (log) {
       setLoggedIn(true)
     }
   }, [role])
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -97,7 +97,7 @@ const Header = (props) => {
     {
       menuTitle: 'Prijava',
       pageURL: '/login',
-    } ,
+    },
     {
       menuTitle: 'Home',
       pageURL: '/pocetnaHome',
@@ -157,16 +157,15 @@ const Header = (props) => {
             </>
           ) : (
             <div className={classes.headerOptions}>
-        
               {loggedIn ? (
                 <>
                   <Button
-                      style={{ borderRadius: '0', borderLeft: '1px solid white' }}
-                      variant='text'
-                      color='inherit'
-                      onClick={() => handleButtonClick('/pocetnaHome')}
-                    >
-                      POČETNA
+                    style={{ borderRadius: '0', borderLeft: '1px solid white' }}
+                    variant='text'
+                    color='inherit'
+                    onClick={() => handleButtonClick('/')}
+                  >
+                    POČETNA
                   </Button>
 
                   <Button
@@ -215,16 +214,14 @@ const Header = (props) => {
                 </>
               ) : (
                 <>
-                      <Button
-                style={{ borderRadius: '0', borderLeft: '1px solid white' }}
-                variant='text'
-                color='inherit'
-                onClick={() => handleButtonClick('/')}
-              >
-                POČETNA
-
-               
-              </Button>
+                  <Button
+                    style={{ borderRadius: '0', borderLeft: '1px solid white' }}
+                    variant='text'
+                    color='inherit'
+                    onClick={() => handleButtonClick('/')}
+                  >
+                    POČETNA
+                  </Button>
                   <Button
                     style={{
                       borderRadius: '0',
@@ -236,7 +233,6 @@ const Header = (props) => {
                   >
                     PRIJAVA
                   </Button>
-               
                 </>
               )}
             </div>

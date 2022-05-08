@@ -6,10 +6,10 @@ export const UserContext = createContext({})
 export const useUserContext = () => useContext(UserContext)
 
 export const AppProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState(validUser())
+  const [loggedIn, setLoggedIn] = useState(validUser())
 
   return (
-    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+    <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
       {children}
     </UserContext.Provider>
   )

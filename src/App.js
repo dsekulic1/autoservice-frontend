@@ -29,21 +29,15 @@ export default function App() {
     // <div className={classes.container}>
     <div
       style={{
-        backgroundImage: `url(${'https://thumbs.dreamstime.com/b/real-line-fire-flames-reflection-isolated-black-background-mockup-black-wall-fire-real-fire-line-flames-120450057.jpg'})`,
-        width: '100%',
-        height: '90%',
+        backgroundColor: 'black',
       }}
     >
       <Switch>
         <Route exact from='/' render={(props) => <Pocetna {...props} />} />
+
         <PrivateRoute
           path='/mojprofil'
           component={MojProfil}
-          logedInUser={loggedIn}
-        />
-         <PrivateRoute
-          path='/pocetnaHome'
-          component={PocetnaHome}
           logedInUser={loggedIn}
         />
         <WorkerRoute
@@ -52,15 +46,14 @@ export default function App() {
           logedInUser={loggedIn}
           role={role}
         />
-        )
         <PrivateRoute
           path='/novizahtjev'
           component={NoviZahtjev}
           logedInUser={loggedIn}
         />
-   
-        <Route path='/login' render={(props) => <Login />} />
-        <Route path='/register' render={(props) => <Register />} />
+
+        <Route path='/login' render={() => <Login />} />
+        <Route path='/register' render={() => <Register />} />
       </Switch>
     </div>
   )

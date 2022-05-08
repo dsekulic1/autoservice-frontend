@@ -10,7 +10,7 @@ import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import FormLabel from '@mui/material/FormLabel'
 import FormControlLabel from '@mui/material/FormControlLabel'
-
+import { signUp } from 'api/user/auth'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
@@ -53,7 +53,7 @@ export default function Register() {
   const onFinish = async (values) => {
     try {
       setLoading(true)
-      const requestOptions = {
+      /* const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -62,9 +62,10 @@ export default function Register() {
         process.env.REACT_APP_HOST_URL + '/api/v1/auth/signup',
         requestOptions
       )
-      const data = await response.json()
+      const data = await response.json()*/
+      const response = await signUp(values)
       setLoading(false)
-      setSession(data)
+      setSession(response)
       history.push('/')
     } catch (error) {
       setLoading(false)

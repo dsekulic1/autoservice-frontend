@@ -12,7 +12,6 @@ import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { registerUrl, homeUrl } from 'utilities/appUrls'
 import {
   getRememberInfo,
@@ -20,6 +19,8 @@ import {
   setRememberInfo,
   setSession,
 } from 'utilities/localStorage'
+import { useUserContext } from 'AppContext'
+import { login } from 'api/user/auth'
 
 function Copyright(props) {
   return (
@@ -38,18 +39,18 @@ function Copyright(props) {
     </Typography>
   )
 }
-const theme = createTheme()
 
 const SignIn = () => {
   const history = useHistory()
   const rememberInfo = getRememberInfo()
   const [loading, setLoading] = useState(false)
   const [isTrue, setIsTrue] = React.useState(false)
+  const { setLoggedIn } = useUserContext()
 
   const onFinish = async (values) => {
     try {
       setLoading(true)
-      const requestOptions = {
+      /* const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -58,18 +59,20 @@ const SignIn = () => {
         process.env.REACT_APP_HOST_URL + '/api/v1/auth/login',
         requestOptions
       )
-      const data = await response.json()
+      const data = await response.json()*/
+      const response = await login(values)
+      setSession(response)
+
       setLoading(false)
-      setSession(data)
       if (isTrue) {
         setRememberInfo(values.username, values.password)
       } else {
         removeRememberInfo()
       }
-      history.push('/')
+      history.goBack()
+      setLoggedIn(true)
     } catch (error) {
       console.log(error)
-
       setLoading(false)
     }
   }
@@ -84,8 +87,26 @@ const SignIn = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
+    <div
+      style={{
+        backgroundColor: 'black',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '100vh',
+        borderRadius: '1px solid white',
+      }}
+    >
+      <Container
+        component='main'
+        maxWidth='xs'
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundImage: `url(${'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'})`,
+          backgroundColor: '#a7a3a3',
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -172,7 +193,7 @@ const SignIn = () => {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    </div>
   )
 }
 

@@ -1,6 +1,9 @@
+import { getUser } from 'utilities/localStorage'
+
 export const validUser = () => {
-  const loggedInUser = localStorage.getItem('autoservice-session')
-  if (loggedInUser != null) return true
+  const user = getUser()
+
+  if (user != null) return true
 
   return false
 }
