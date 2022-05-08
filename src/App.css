@@ -14,7 +14,7 @@
 }
 .app-bg {
   background-image: url('./images/background-png.png');
-  background-size: cover;
+  /* background-size: cover; */
   background-repeat: repeat-y;
 }
 

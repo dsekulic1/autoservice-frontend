@@ -11,6 +11,7 @@ import Register from 'pages/Register/Register'
 
 import './styles.css'
 import './App.css'
+import Request from 'pages/Request/Request'
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -42,7 +43,7 @@ export default function App() {
         />
         <PrivateRoute
           path='/novizahtjev'
-          component={NoviZahtjev}
+          component={Request}
           logedInUser={loggedIn}
         />
 
