@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { loginUrl } from 'utilities/appUrls'
 
 // handle the private routes
 const PrivateRoute = ({
@@ -13,7 +12,7 @@ const PrivateRoute = ({
     <Route
       path={Path}
       render={() =>
-        logedInUser ? <Component {...rest} /> : <Redirect push to={loginUrl} />
+        logedInUser ? <Component {...rest} /> : <Redirect push to='/' />
       }
     />
   )

@@ -97,10 +97,10 @@ const Header = (props) => {
     {
       menuTitle: 'Prijava',
       pageURL: '/login',
-    },
+    } ,
     {
-      menuTitle: 'Registracija',
-      pageURL: '/register',
+      menuTitle: 'Home',
+      pageURL: '/pocetnaHome',
     },
   ]
 
@@ -157,16 +157,18 @@ const Header = (props) => {
             </>
           ) : (
             <div className={classes.headerOptions}>
-              <Button
-                style={{ borderRadius: '0', borderLeft: '1px solid white' }}
-                variant='text'
-                color='inherit'
-                onClick={() => handleButtonClick('/')}
-              >
-                POČETNA
-              </Button>
+        
               {loggedIn ? (
                 <>
+                  <Button
+                      style={{ borderRadius: '0', borderLeft: '1px solid white' }}
+                      variant='text'
+                      color='inherit'
+                      onClick={() => handleButtonClick('/pocetnaHome')}
+                    >
+                      POČETNA
+                  </Button>
+
                   <Button
                     style={{ borderRadius: '0', borderLeft: '1px solid white' }}
                     variant='text'
@@ -175,6 +177,7 @@ const Header = (props) => {
                   >
                     MOJ PROFIL
                   </Button>
+
                   {role === 'ROLE_WORKER' && (
                     <Button
                       style={{
@@ -212,10 +215,19 @@ const Header = (props) => {
                 </>
               ) : (
                 <>
+                      <Button
+                style={{ borderRadius: '0', borderLeft: '1px solid white' }}
+                variant='text'
+                color='inherit'
+                onClick={() => handleButtonClick('/')}
+              >
+                POČETNA
+
+               
+              </Button>
                   <Button
                     style={{
                       borderRadius: '0',
-                      borderRight: '1px solid white',
                       borderLeft: '1px solid white',
                     }}
                     variant='text'
@@ -224,18 +236,7 @@ const Header = (props) => {
                   >
                     PRIJAVA
                   </Button>
-                  <Button
-                    style={{
-                      borderRadius: '0',
-                      borderRight: '1px solid white',
-                      borderLeft: '1px solid white',
-                    }}
-                    variant='text'
-                    color='inherit'
-                    onClick={() => handleButtonClick('/register')}
-                  >
-                    REGISTRACIJA
-                  </Button>
+               
                 </>
               )}
             </div>

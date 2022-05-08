@@ -9,6 +9,7 @@ import Login from './pages/Login/Login'
 import PrivateRoute from 'routing/PrivateRoute'
 import WorkerRoute from 'routing/WorkerRoute'
 import Register from 'pages/Register/Register'
+import PocetnaHome from 'PocetnaHome'
 // const useStyles = makeStyles({});
 
 export default function App() {
@@ -40,6 +41,11 @@ export default function App() {
           component={MojProfil}
           logedInUser={loggedIn}
         />
+         <PrivateRoute
+          path='/pocetnaHome'
+          component={PocetnaHome}
+          logedInUser={loggedIn}
+        />
         <WorkerRoute
           path='/pregledzahtjeva'
           component={Zahtjevi}
@@ -52,6 +58,7 @@ export default function App() {
           component={NoviZahtjev}
           logedInUser={loggedIn}
         />
+   
         <Route path='/login' render={(props) => <Login />} />
         <Route path='/register' render={(props) => <Register />} />
       </Switch>
