@@ -50,7 +50,6 @@ const SignIn = () => {
     try {
       setLoading(true)
       const requestOptions = {
-        mode: 'cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
