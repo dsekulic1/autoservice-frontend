@@ -14,7 +14,6 @@ import { signUp } from 'api/user/auth'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme } from '@mui/material/styles'
 import { loginUrl, homeUrl } from 'utilities/appUrls'
 import { setSession } from 'utilities/localStorage'
 
@@ -120,38 +119,28 @@ export default function Register() {
   return (
     <div
       style={{
-        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: '100vh',
-        borderRadius: '1px solid white',
+        borderRadius: '2px solid white',
       }}
     >
-      <Container
-        component='main'
-        maxWidth='xs'
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundImage: `url(${'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'})`,
-          backgroundColor: '#a7a3a3',
-        }}
-      >
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
             borderRadius: '5px',
             backgroundColor: '#FFFAFA',
             opacity: 0.85,
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             padding: '25px',
+            width: 500,
+            borderRadius: '1px',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#AE2331' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
@@ -161,7 +150,7 @@ export default function Register() {
             component='form'
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{ mt: 2 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -183,7 +172,7 @@ export default function Register() {
                   name='lastName'
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -192,7 +181,7 @@ export default function Register() {
                   name='email'
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -202,7 +191,7 @@ export default function Register() {
                   type='tel'
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -212,7 +201,7 @@ export default function Register() {
                   id='username'
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -231,22 +220,7 @@ export default function Register() {
                   id='city'
                 />
               </Grid>
-              <Grid item xs={12} justifyContent='center' alignItems='center'>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value='worker'
-                      valuePropName='checked'
-                      color='primary'
-                      checked={isTrue}
-                      onChange={(e) => {
-                        setIsTrue(e.target.checked)
-                      }}
-                    />
-                  }
-                  label='Worker'
-                />
-              </Grid>
+
               <Grid item xs={12}>
                 <FormLabel sx={{ color: 'blue' }}>Job</FormLabel>
               </Grid>
@@ -268,6 +242,22 @@ export default function Register() {
                   id='jobDescription'
                   label='Job description'
                   autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value='worker'
+                      valuePropName='checked'
+                      color='primary'
+                      checked={isTrue}
+                      onChange={(e) => {
+                        setIsTrue(e.target.checked)
+                      }}
+                    />
+                  }
+                  label='Worker'
                 />
               </Grid>
               <Grid item xs={12}>
@@ -321,17 +311,29 @@ export default function Register() {
               </Grid>
             </Grid>
             <Button
+              loading={loading}
               type='submit'
               fullWidth
               variant='contained'
-              loading={loading}
               sx={{ mt: 3, mb: 2 }}
+              style={{
+                backgroundColor: '#AE2331',
+                marginTop: '10%',
+                marginLeft: '30%',
+                width: '40%',
+                color: '#ffff',
+                borderRadius: '10',
+              }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent='center'>
               <Grid item>
-                <Link href={loginUrl} variant='body2'>
+                <Link
+                  href={loginUrl}
+                  variant='body2'
+                  style={{ color: 'black' }}
+                >
                   Already have an account? Sign in
                 </Link>
               </Grid>

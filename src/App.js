@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './styles.css'
 import Pocetna from './Pocetna'
 import MojProfil from './MojProfil'
 import Zahtjevi from './Zahtjevi'
@@ -9,11 +8,11 @@ import Login from './pages/Login/Login'
 import PrivateRoute from 'routing/PrivateRoute'
 import WorkerRoute from 'routing/WorkerRoute'
 import Register from 'pages/Register/Register'
-import PocetnaHome from 'PocetnaHome'
-// const useStyles = makeStyles({});
+
+import './styles.css'
+import './App.css'
 
 export default function App() {
-  // const classes = useStyles();
   const [loggedIn, setLoggedIn] = useState(false)
   const [role, setRole] = useState('ROLE_USER')
   useEffect(() => {
@@ -26,12 +25,7 @@ export default function App() {
   })
 
   return (
-    // <div className={classes.container}>
-    <div
-      style={{
-        backgroundColor: 'black',
-      }}
-    >
+    <div className='app-bg'>
       <Switch>
         <Route exact from='/' render={(props) => <Pocetna {...props} />} />
 

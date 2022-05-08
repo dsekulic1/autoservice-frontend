@@ -45,14 +45,9 @@ const tipovi = [
 const NoviZahtjev = (props) => {
   const [currency, setCurrency] = React.useState('EUR')
 
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCurrency(event.target.value);
-  //};;
-
   return (
     <div
       style={{
-        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',

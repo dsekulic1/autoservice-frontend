@@ -20,7 +20,6 @@ const Pocetna = () => {
   return (
     <div
       style={{
-        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -33,7 +32,6 @@ const Pocetna = () => {
           width: '80%',
           height: '20%',
           paddingLeft: '10%',
-          backgroundColor: 'black',
           color: 'white',
         }}
       >
@@ -60,18 +58,6 @@ const Pocetna = () => {
             </Link>
           </Button>
         )}
-      </Box>
-      <Box
-        sx={{
-          width: '45%',
-          height: '50%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundImage: `url(${'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'})`,
-          backgroundColor: '#a7a3a3',
-        }}
-      >
-        ZAHTJEVI
       </Box>
     </div>
   )

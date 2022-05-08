@@ -19,6 +19,7 @@ import {
   setRememberInfo,
   setSession,
 } from 'utilities/localStorage'
+import { maxHeight } from '@mui/system'
 import { useUserContext } from 'AppContext'
 import { login } from 'api/user/auth'
 
@@ -89,7 +90,6 @@ const SignIn = () => {
   return (
     <div
       style={{
-        backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -97,30 +97,21 @@ const SignIn = () => {
         borderRadius: '1px solid white',
       }}
     >
-      <Container
-        component='main'
-        maxWidth='xs'
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundImage: `url(${'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'})`,
-          backgroundColor: '#a7a3a3',
-        }}
-      >
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
             borderRadius: '5px',
             backgroundColor: '#FFFAFA',
             opacity: 0.85,
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             padding: '25px',
+            borderRadius: '1px',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#AE2331' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
@@ -173,18 +164,27 @@ const SignIn = () => {
               }
               label='Remember me'
             />
+
             <Button
               loading={loading}
               type='submit'
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
+              style={{
+                backgroundColor: '#AE2331',
+                marginTop: '10%',
+                marginLeft: '30%',
+                width: '40%',
+                color: '#ffff',
+                borderRadius: '10',
+              }}
             >
               Log In
             </Button>
             <Grid container justifyContent='center'>
               <Grid item>
-                <Link href={registerUrl}>
+                <Link href={registerUrl} style={{ color: 'black' }}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

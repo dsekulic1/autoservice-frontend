@@ -112,7 +112,7 @@ const MojProfil = (props) => {
   }
 
   return (
-    <Box style={{ backgroundColor: 'black' }}>
+    <Box>
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='md'>
           <CssBaseline />
