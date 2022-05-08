@@ -14,7 +14,7 @@ import { signUp } from 'api/user/auth'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 import { loginUrl, homeUrl } from 'utilities/appUrls'
 import { setSession } from 'utilities/localStorage'
 
@@ -35,8 +35,6 @@ function Copyright(props) {
     </Typography>
   )
 }
-
-const theme = createTheme()
 
 export default function Register() {
   const history = useHistory()
@@ -120,8 +118,26 @@ export default function Register() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
+    <div
+      style={{
+        backgroundColor: 'black',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '100vh',
+        borderRadius: '1px solid white',
+      }}
+    >
+      <Container
+        component='main'
+        maxWidth='xs'
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundImage: `url(${'https://img.freepik.com/free-vector/auto-repair-car-service-logo_304830-262.jpg'})`,
+          backgroundColor: '#a7a3a3',
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -324,6 +340,6 @@ export default function Register() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+    </div>
   )
 }
