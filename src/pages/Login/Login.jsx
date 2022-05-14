@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -43,37 +43,25 @@ function Copyright(props) {
 const SignIn = () => {
   const history = useHistory()
   const rememberInfo = getRememberInfo()
-  const [loading, setLoading] = useState(false)
   const [isTrue, setIsTrue] = React.useState(false)
-  const { setLoggedIn } = useUserContext()
+  const { setLoggedIn, setUser, setRole, setLocation } = useUserContext()
 
   const onFinish = async (values) => {
     try {
-      setLoading(true)
-      /* const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      }
-      const response = await fetch(
-        process.env.REACT_APP_HOST_URL + '/api/v1/auth/login',
-        requestOptions
-      )
-      const data = await response.json()*/
       const response = await login(values)
       setSession(response)
-
-      setLoading(false)
+      setRole(response.roles[0])
+      setLoggedIn(true)
+      setUser(response.firstName + ' ' + response.lastName)
+      setLocation(response.city)
       if (isTrue) {
         setRememberInfo(values.username, values.password)
       } else {
         removeRememberInfo()
       }
       history.goBack()
-      setLoggedIn(true)
     } catch (error) {
       console.log(error)
-      setLoading(false)
     }
   }
   const handleSubmit = async (event) => {
@@ -165,7 +153,6 @@ const SignIn = () => {
             />
 
             <Button
-              loading={loading}
               type='submit'
               fullWidth
               variant='contained'

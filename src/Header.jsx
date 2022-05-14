@@ -13,6 +13,7 @@ import { withRouter } from 'react-router-dom'
 import { removeSession } from 'utilities/localStorage'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { getUser } from 'utilities/localStorage'
+import { useUserContext } from 'AppContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,36 +35,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Header = (props) => {
+const Header = () => {
   const history = useHistory()
-  const user = getUser()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [role, setRole] = useState('ROLE_USER')
+  const { setLoggedIn, role, loggedIn } = useUserContext()
+
   const handleLogout = () => {
     setLoggedIn(false)
     removeSession()
     history.push('/')
   }
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('autoservice-session')
-    if (loggedInUser) {
-      var mydata = JSON.parse(loggedInUser)
-      setRole(mydata.roles[0])
-      setLoggedIn(true)
-    }
-  }, [user])
-  useEffect(() => {
-    const log = localStorage.getItem('autoservice-session')
-    if (log) {
-      setLoggedIn(true)
-    }
-  }, [role])
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }

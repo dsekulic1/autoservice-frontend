@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom'
 const PrivateRoute = ({
   component: Component,
   path: Path,
-  logedInUser: logedInUser,
+  logedIn: logedIn,
   ...rest
 }) => {
   return (

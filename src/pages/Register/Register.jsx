@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { loginUrl, homeUrl } from 'utilities/appUrls'
 import { setSession } from 'utilities/localStorage'
+import { useUserContext } from 'AppContext'
 
 function Copyright(props) {
   return (
@@ -39,9 +40,9 @@ export default function Register() {
   const history = useHistory()
   const [lat, setLat] = useState(null)
   const [lng, setLng] = useState(null)
-  const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState(null)
   const [isTrue, setIsTrue] = React.useState(false)
+  const { setLoggedIn, setUser, setRole, setLocation } = useUserContext()
 
   useEffect(() => {
     getLocation()
@@ -49,23 +50,14 @@ export default function Register() {
 
   const onFinish = async (values) => {
     try {
-      setLoading(true)
-      /* const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      }
-      const response = await fetch(
-        process.env.REACT_APP_HOST_URL + '/api/v1/auth/signup',
-        requestOptions
-      )
-      const data = await response.json()*/
       const response = await signUp(values)
-      setLoading(false)
       setSession(response)
+      setRole(response.roles[0])
+      setLoggedIn(true)
+      setUser(response.firstName + ' ' + response.lastName)
+      setLocation(response.city)
       history.push('/')
     } catch (error) {
-      setLoading(false)
       console.log(error)
     }
   }
@@ -84,16 +76,28 @@ export default function Register() {
       email: data.get('email'),
       number: data.get('number'),
       repairer: isTrue,
-      job: {
-        name: data.get('jobName'),
-        description: data.get('jobDescription'),
-      },
-      education: {
-        schoolName: data.get('schoolName'),
-        schoolDegree: data.get('schoolDegree'),
-        dateStarted: new Date(data.get('dateStarted')).toISOString(),
-        dateFinished: new Date(data.get('dateFinished')).toISOString(),
-      },
+      job: isTrue
+        ? {
+            name: data.get('jobName'),
+            description: data.get('jobDescription'),
+          }
+        : {
+            name: 'user',
+            description: 'userNotWorker',
+          },
+      education: isTrue
+        ? {
+            schoolName: data.get('schoolName'),
+            schoolDegree: data.get('schoolDegree'),
+            dateStarted: new Date(data.get('dateStarted')).toISOString(),
+            dateFinished: new Date(data.get('dateFinished')).toISOString(),
+          }
+        : {
+            schoolName: 'user',
+            schoolDegree: 'userDiploma',
+            dateStarted: new Date(Date.now()).toISOString(),
+            dateFinished: new Date(Date.now()).toISOString(),
+          },
     }
     onFinish(values)
   }
@@ -129,7 +133,6 @@ export default function Register() {
         <CssBaseline />
         <Box
           sx={{
-            borderRadius: '5px',
             backgroundColor: '#FFFAFA',
             opacity: 0.85,
             display: 'flex',
@@ -220,30 +223,6 @@ export default function Register() {
                   id='city'
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <FormLabel sx={{ color: 'blue' }}>Job</FormLabel>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name='jobName'
-                  required
-                  fullWidth
-                  id='jobName'
-                  label='Job Name'
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name='jobDescription'
-                  required
-                  fullWidth
-                  id='jobDescription'
-                  label='Job description'
-                  autoFocus
-                />
-              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
@@ -260,58 +239,85 @@ export default function Register() {
                   label='Worker'
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormLabel sx={{ color: 'blue' }}>Education</FormLabel>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name='schoolName'
-                  required
-                  fullWidth
-                  id='schoolName'
-                  label='School Name'
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name='schoolDegree'
-                  required
-                  fullWidth
-                  id='schoolDegree'
-                  label='School Degree'
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id='dateStarted'
-                  name='dateStarted'
-                  label='Started'
-                  type='datetime-local'
-                  defaultValue='2017-05-24T10:30'
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id='dateFinished'
-                  name='dateFinished'
-                  label='Ended'
-                  type='datetime-local'
-                  defaultValue='2017-05-24T10:30'
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
+              {isTrue && (
+                <>
+                  <Grid item xs={12}>
+                    <FormLabel sx={{ color: 'blue' }}>Job</FormLabel>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      name='jobName'
+                      required
+                      fullWidth
+                      id='jobName'
+                      label='Job Name'
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      name='jobDescription'
+                      required
+                      fullWidth
+                      id='jobDescription'
+                      label='Job description'
+                      autoFocus
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <FormLabel sx={{ color: 'blue' }}>Education</FormLabel>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      name='schoolName'
+                      required
+                      fullWidth
+                      id='schoolName'
+                      label='School Name'
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      name='schoolDegree'
+                      required
+                      fullWidth
+                      id='schoolDegree'
+                      label='School Degree'
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      id='dateStarted'
+                      name='dateStarted'
+                      label='Started'
+                      type='datetime-local'
+                      defaultValue='2017-05-24T10:30'
+                      fullWidth
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      id='dateFinished'
+                      name='dateFinished'
+                      label='Ended'
+                      type='datetime-local'
+                      defaultValue='2017-05-24T10:30'
+                      fullWidth
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </Grid>
+                </>
+              )}
             </Grid>
             <Button
-              loading={loading}
               type='submit'
               fullWidth
               variant='contained'

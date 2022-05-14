@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
-import { getUser } from 'utilities/localStorage'
-
+import { useUserContext } from 'AppContext'
 import Link from '@material-ui/core/Link'
 
 const Pocetna = () => {
   const history = useHistory()
-  const user = getUser()
-  const [loggedIn, setLoggedIn] = useState(false)
-
-  useEffect(() => {
-    if (user) {
-      setLoggedIn(true)
-    }
-  }, [user])
+  const { loggedIn } = useUserContext()
 
   return (
     <div

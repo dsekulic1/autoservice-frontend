@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Pocetna from './Pocetna'
 import MojProfil from './MojProfil'
 import Zahtjevi from './Zahtjevi'
-import NoviZahtjev from './NoviZahtjev'
 import { Route, Switch } from 'react-router-dom'
 import Login from './pages/Login/Login'
 import PrivateRoute from 'routing/PrivateRoute'
 import WorkerRoute from 'routing/WorkerRoute'
 import Register from 'pages/Register/Register'
+import { useUserContext } from 'AppContext'
 
 import './styles.css'
 import './App.css'
 import Request from 'pages/Request/Request'
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [role, setRole] = useState('ROLE_USER')
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('autoservice-session')
-    if (loggedInUser) {
-      var mydata = JSON.parse(loggedInUser)
-      setRole(mydata.roles[0])
-      setLoggedIn(true)
-    }
-  })
+  const { loggedIn, role } = useUserContext()
 
   return (
     <div className='app-bg'>
@@ -33,18 +24,18 @@ export default function App() {
         <PrivateRoute
           path='/mojprofil'
           component={MojProfil}
-          logedInUser={loggedIn}
+          loggedIn={loggedIn}
         />
         <WorkerRoute
           path='/pregledzahtjeva'
           component={Zahtjevi}
-          logedInUser={loggedIn}
+          loggedIn={loggedIn}
           role={role}
         />
         <PrivateRoute
           path='/novizahtjev'
           component={Request}
-          logedInUser={loggedIn}
+          loggedIn={loggedIn}
         />
 
         <Route path='/login' render={() => <Login />} />

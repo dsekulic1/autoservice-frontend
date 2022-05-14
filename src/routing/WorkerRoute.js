@@ -1,6 +1,5 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import { loginUrl } from 'utilities/appUrls'
+import { Route } from 'react-router-dom'
 
 // handle the private routes
 const WorkerRoute = ({

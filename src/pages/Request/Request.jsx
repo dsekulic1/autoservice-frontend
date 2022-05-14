@@ -5,23 +5,23 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { getAllCategories } from 'api/category/category'
 import { addRequest } from 'api/request/request'
-import { getUser } from 'utilities/localStorage'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
+import { useUserContext } from 'AppContext'
 
 const Request = () => {
   const [kategorije, setKategorije] = useState([])
-  const [user, setUser] = useState('')
+  const { user, location } = useUserContext()
 
-  useEffect(async () => {
-    try {
-      setKategorije(await getAllCategories())
-      setUser(getUser())
-    } catch (e) {
-      console.error(e)
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setKategorije(await getAllCategories())
+      } catch (e) {
+        console.error(e)
+      }
     }
-    const fetchData = async () => {}
     fetchData()
   }, [])
 
@@ -36,8 +36,8 @@ const Request = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const category = kategorije.find(function (post, index) {
-      if (post.name == data.get('category')) return true
+    const category = kategorije.find(function (post) {
+      if (post.name === data.get('category')) return true
     })
 
     const values = {
@@ -95,7 +95,7 @@ const Request = () => {
               color: '#ffff',
             }}
           >
-            {user.firstName + ' ' + user.lastName}
+            {user}
           </p>
 
           <p
@@ -109,7 +109,7 @@ const Request = () => {
             }}
           >
             <LocationOnIcon />
-            {user.city}
+            {location}
           </p>
 
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
