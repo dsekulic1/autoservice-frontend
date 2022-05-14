@@ -5,14 +5,14 @@ import { Route, Redirect } from 'react-router-dom'
 const PrivateRoute = ({
   component: Component,
   path: Path,
-  logedIn: logedIn,
+  loggedIn: loggedIn,
   ...rest
 }) => {
   return (
     <Route
       path={Path}
       render={() =>
-        logedInUser ? <Component {...rest} /> : <Redirect push to='/' />
+        loggedIn ? <Component {...rest} /> : <Redirect push to='/' />
       }
     />
   )
