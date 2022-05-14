@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 const WorkerRoute = ({
   component: Component,
   path: Path,
-  logedInUser: logedInUser,
+  loggedIn: loggedIn,
   role: role,
   ...rest
 }) => {
@@ -13,7 +13,7 @@ const WorkerRoute = ({
     <Route
       path={Path}
       render={() =>
-        logedInUser && role === 'ROLE_WORKER' ? <Component {...rest} /> : <></>
+        loggedIn && role === 'ROLE_WORKER' ? <Component {...rest} /> : <></>
       }
     />
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import Pocetna from './Pocetna'
 import MojProfil from './MojProfil'
-import Zahtjevi from './Zahtjevi'
+import Zahtjevi from './pages/Requests/Zahtjevi'
 import { Route, Switch } from 'react-router-dom'
 import Login from './pages/Login/Login'
 import PrivateRoute from 'routing/PrivateRoute'
