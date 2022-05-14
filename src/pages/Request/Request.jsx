@@ -12,6 +12,7 @@ import { useUserContext } from 'AppContext'
 import FormControl from '@material-ui/core/FormControl'
 import Modal from '@mui/material/Modal'
 import ButtonGroup from '@mui/material/ButtonGroup'
+import { getUser } from 'utilities/localStorage'
 
 const style = {
   position: 'absolute',
@@ -78,9 +79,10 @@ const Request = () => {
 
     const values = {
       description: data.get('description'),
-      user: user,
+      user: getUser(),
       category: category,
     }
+
     onFinish(values)
   }
 

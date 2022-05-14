@@ -35,7 +35,6 @@ const ZahtjevCard = ({ zahtjev, rjesenja, rank, user }) => {
       break
     }
   }
-  console.log(rjesenja)
   const [open, setOpen] = useState(false)
   const [state, setState] = useState(statusi[FOUND])
   const [solution, setSolution] = useState()
